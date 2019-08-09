@@ -25,7 +25,7 @@ pd.options.display.float_format = '{:,.2f}'.format
 pd.set_option("display.max_rows", 1000)
 
 ticker = 'S50IF_CON'
-df_raw = pd.read_csv('/home/pi/tfex_m15/S50IF_CON_M15_train_tillend2018.csv'
+df_raw = pd.read_csv('/home/pi/tfex_m15/S50IF_CON_M15_train_tillend2018.csv')
 df_raw['Date/Time'] = pd.to_datetime(df_raw['Date/Time'],format='%d/%m/%Y %H:%M:%S')
 df_raw.drop(columns=['Ticker'], inplace=True)
 
