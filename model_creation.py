@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
 import numpy as np
 import pandas as pd
 from datetime import datetime
@@ -13,6 +7,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.svm import SVC
 import xgboost
+import joblib
 from sklearn.metrics import classification_report
 import matplotlib.pyplot as plt
 import matplotlib as mpl
@@ -39,11 +34,11 @@ train_data_range = round(len(df_withLabel.index)*0.9,0)
 train_df_withLabel = df_withLabel.iloc[:int(train_data_range),:]
 validate_df_withLabel = df_withLabel.iloc[int(train_data_range):,:]   
 
-#model = LogisticRegression(solver='liblinear', random_state=2019)
+model = LogisticRegression(solver='liblinear', random_state=2019)
 #model = DecisionTreeClassifier(random_state=2019)
 #model = RandomForestClassifier(n_estimators=200, random_state=2019)
 #model = GradientBoostingClassifier(n_estimators=200, random_state=2019)
-model = SVC(kernel='rbf', random_state=2019)
+#model = SVC(kernel='rbf', random_state=2019)
 #model = xgboost.XGBClassifier()
 
 predictors = ['EMA10_above_EMA35?','EMA35_above_EMA50?', 'EMA50_above_EMA89?','EMA89_above_EMA120?',
@@ -67,7 +62,7 @@ if __name__ == '__main__':
     fitting_evaluating(ticker=ticker, features_df=features, label_series=label, model=model, 
                        partition_split=3, test_size=0.25, seed=2019)
     
-
+joblib.dump(model, '/home/pi/tfex_m15/TFEX_model_lr.pkl') 
 
 validate_features = validate_df_withLabel[predictors]
 validate_label = validate_df_withLabel['beLong']

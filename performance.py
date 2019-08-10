@@ -142,6 +142,7 @@ df_PnL['Max_Equity'] = Max_Equity
 df_PnL['Equity_Growth'] = Equity_Growth
 df_PnL['DD'] = DD
 df_PnL['MSDD'] = MSDD
+dump_to_MongoDB('localhost:27017', 'TFEX', 'TFEX_performance', df_PnL)
 print(df_PnL.head())
 print(df_PnL.tail())
 
