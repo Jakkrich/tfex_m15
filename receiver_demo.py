@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
 from trading_module.tfex_trading import *
 from trading_module.line_notify import *
 import sklearn.utils._cython_blas
@@ -39,7 +33,7 @@ commission = 50*2 #Round trip
 num_candle = 22 #Number of candlesticks in a day
 retrieve_rows = max((5+((datetime.today() - datetime.strptime(start_date,'%Y-%m-%d')).days))*num_candle, 1000)
 
-pkl_location = 'D:/BD643/iot/TFEX_model_svc.pkl'
+pkl_location = 'home/pi/tfex_m15/TFEX_model_svc.pkl'
 
 #LineToken = 'Fq4vsJ7rDeDnfaBgucfrbPhn9YHfra2T1rxg4g6sLz4' #Test
 #LineToken = '6GFAgWPTwj4xeEHgop9QFvazhU3AOpiSbg5T5wHmOnF' #Price Alerts
@@ -48,7 +42,7 @@ LineToken = 'YH8Ed9dB3kTisbFEU7hnub1CTtJnTl7rRXkTNxwXFTq' #Tfex
 ##################################################################################################
 
 if __name__ == '__main__':
-    dump = pd.read_csv('D:/tfex_m15/S50IF_CON_M15_endJul.csv')
+    dump = pd.read_csv('home/pi/tfex_m15/S50IF_CON_M15_endJul.csv')
     dump['Date/Time'] = pd.to_datetime(dump['Date/Time'], format='%d/%m/%Y %H:%M:%S')
     dump.drop(columns=['Ticker'],inplace=True)
     #dump_to_MongoDB(host, db_name, 'TFEX_update', dump)
@@ -242,16 +236,16 @@ while True:
     Message12 = '%WIN = '+str("{0:,.2f}".format(win_ratio*100))+'%'
 
     img = Image.new('RGB', (230, 210), color = (73, 109, 137))
-    font = ImageFont.truetype('C:/Windows/Fonts/Arial.ttf', 13) 
+    font = ImageFont.truetype('usr/share/fonts/truetype/freefont/FreeSansBold.ttf', 13) 
     Message = Message1+'\n'+Message2+'\n'+Message3+'\n'+Message4+'\n'+Message5+'\n'+Message6+'\n'+Message7+'\n'+Message8+'\n'+Message9+'\n'+Message10+'\n'+Message11+'\n'+Message12
     d = ImageDraw.Draw(img)
     d.text((10,10), Message, font=font, fill=(255,255,0))
 
-    img.save('D:/BD643/iot/performance.png')
+    img.save('/home/pi/tfex_m15/performance.png')
     
     try:
         #ResponseLine = LineNotify(main_message, LineToken)  
-        ResponseLine = LineNotifyImage(main_message, 'D:/BD643/iot/performance.png', LineToken)
+        ResponseLine = LineNotifyImage(main_message, '/home/pi/tfex_m15/performance.png', LineToken)
     except:
         pass
     
@@ -260,8 +254,6 @@ while True:
     stop2 = time.time()
     print('time-consume#2 =', stop2-start2, 'sec\n')
 
-
-# In[ ]:
 
 
 

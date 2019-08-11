@@ -10,10 +10,10 @@ socket.bind("tcp://*:1234")
 
 start_date = '2019-08-01'
 interval = int(input("please mention time interval: "))
-data = retrieve_from_MongoDB('localhost:27017', 'TFEX', 'TFEX_update', no_of_rows=10000)
-data['Date/Time'] = pd.to_datetime(data['Date/Time'], format='%Y-%m-%d %H:%M:%S')
+data = pd.read_csv('/home/pi/tfex_m15/S50IF_CON_M15_aug_to_present.csv')
+data['Date/Time'] = pd.to_datetime(data['Date/Time'], format='%d/%m/%Y %H:%M:%S')
 data = data[['Date/Time','Open','High','Low','Close','Volume','ZigZag05','ZigZag10','ZigZag15']]
-data = data[data['Date/Time'] >= start_date]
+#data = data[data['Date/Time'] >= start_date]
 data_dict = data.to_dict(orient='records')
 
 for line in data_dict:
